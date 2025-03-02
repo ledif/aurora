@@ -1,0 +1,13 @@
+enable rpm-ostree-countme.service
+enable tailscaled.service
+enable dconf-update.service
+enable rpm-ostreed-automatic.timer
+enable flatpak-system-update.timer
+enable ublue-system-setup.service
+enable ublue-guest-user.service
+enable brew-setup.service
+enable brew-upgrade.timer
+enable brew-update.timer
+enable aurora-groups.service
+enable usr-share-sddm-themes.mount
+enable check-sb-key.service

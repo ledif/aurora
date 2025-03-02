@@ -1,0 +1,4 @@
+enable ublue-flatpak-manager.service
+enable flatpak-user-update.timer
+enable ublue-user-setup.service
+enable podman-auto-update.timer

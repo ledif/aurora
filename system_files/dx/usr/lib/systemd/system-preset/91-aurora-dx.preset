@@ -1,0 +1,5 @@
+enable docker.socket
+enable podman.socket
+enable swtpm-workaround.service
+enable libvirt-workaround.service
+enable aurora-dx-groups.service
