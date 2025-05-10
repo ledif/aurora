@@ -5,10 +5,11 @@ set -x
 dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging install -y \
   readymade-nightly
 
-
 # This has more than just branding -- it has repart configs
 dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install -y \
-  bluefin-readymade-config
+  aurora-readymade-config
+
+sudo ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
 IMAGE_INFO="$(cat /usr/share/ublue-os/image-info.json)"
 IMAGE_TAG="$(jq -c -r '."image-tag"' <<<$IMAGE_INFO)"
@@ -59,7 +60,7 @@ EOF
 
 #rm -f /usr/share/applications/liveinst.desktop
 sed -i '/NoDisplay=.*/d' /usr/share/applications/com.fyralabs.Readymade.desktop
-cp -f /usr/share/applications/com.fyralabs.Readymade.desktop /etc/xdg/autostart
+#cp -f /usr/share/applications/com.fyralabs.Readymade.desktop /etc/xdg/autostart
 
 mkdir -p /usr/share/readymade/postinstall.d
 tee /usr/share/readymade/postinstall.d/10-flatpaks.sh <<EOF
@@ -98,10 +99,9 @@ echo -e "$ENROLLMENT_PASSWORD\n$ENROLLMENT_PASSWORD" | mokutil --import "$SECURE
 EOF
 chmod +x /usr/share/readymade/postinstall.d/99-mok.sh
 
-
 # Disable screen locking
 mkdir -p /etc/skel/.config
-cat > /etc/skel/.config/kscreenlockerrc << 'EOF'
+cat >/etc/skel/.config/kscreenlockerrc <<'EOF'
 [Daemon]
 Autolock=false
 LockOnResume=false
