@@ -58,7 +58,7 @@ jobs:
         env:
           FLAVOR: ${{ matrix.flavor }}
         run: |
-          OUTPUT_NAME="${IMAGE_REGISTRY}/${IMAGE_NAME}"
+          OUTPUT_NAME="ublue-os/${IMAGE_NAME}"
           ARTIFACT_FORMAT=""
           KARGS="NONE"
           if [ "$FLAVOR" != "" ] ; then
