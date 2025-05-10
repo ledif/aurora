@@ -5,6 +5,11 @@ set -x
 dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging install -y \
   readymade-nightly
 
+
+# This has more than just branding -- it has repart configs
+dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install -y \
+  bluefin-readymade-config
+
 IMAGE_INFO="$(cat /usr/share/ublue-os/image-info.json)"
 IMAGE_TAG="$(jq -c -r '."image-tag"' <<<$IMAGE_INFO)"
 IMAGE_FLAVOR="$(jq -c -r '."image-flavor"' <<<$IMAGE_INFO)"
@@ -92,6 +97,15 @@ mokutil --timeout -1 || :
 echo -e "$ENROLLMENT_PASSWORD\n$ENROLLMENT_PASSWORD" | mokutil --import "$SECUREBOOT_KEY" || :
 EOF
 chmod +x /usr/share/readymade/postinstall.d/99-mok.sh
+
+
+# Disable screen locking
+mkdir -p /etc/skel/.config
+cat > /etc/skel/.config/kscreenlockerrc << 'EOF'
+[Daemon]
+Autolock=false
+LockOnResume=false
+EOF
 
 systemctl disable rpm-ostree-countme.service
 systemctl disable tailscaled.service
