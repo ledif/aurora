@@ -68,7 +68,9 @@ jobs:
               KARGS="rd.driver.blacklist=nouveau,modprobe.blacklist=nouveau,nvidia-drm.modeset=1"
             fi
           fi
-          echo "image_ref=ghcr.io/ledif/aurora-test-image:latest" >> "${GITHUB_OUTPUT}"
+          # TODO
+          #echo "image_ref=ghcr.io/$OUTPUT_NAME" >> "${GITHUB_OUTPUT}"
+          echo "image_ref=ghcr.io/ledif/aurora:latest" >> "${GITHUB_OUTPUT}"
           echo "artifact_format=$ARTIFACT_FORMAT" >> "${GITHUB_OUTPUT}"
           echo "kargs=$KARGS" >> "${GITHUB_OUTPUT}"
           
