@@ -15,7 +15,9 @@ IMAGE_INFO="$(cat /usr/share/ublue-os/image-info.json)"
 IMAGE_TAG="$(jq -c -r '."image-tag"' <<<$IMAGE_INFO)"
 IMAGE_FLAVOR="$(jq -c -r '."image-flavor"' <<<$IMAGE_INFO)"
 
-OUTPUT_NAME="ghcr.io/ublue-os/aurora"
+#TODO
+#OUTPUT_NAME="ghcr.io/ublue-os/aurora"
+OUTPUT_NAME="ghcr.io/ledif/aurora"
 if [ "$IMAGE_FLAVOR" != "main" ]; then
   OUTPUT_NAME="${OUTPUT_NAME}-${IMAGE_FLAVOR}"
 fi
