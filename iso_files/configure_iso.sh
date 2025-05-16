@@ -71,6 +71,14 @@ rsync -aWHA /run/host/var/lib/flatpak /ostree/deploy/default/var/lib
 EOF
 chmod +x /usr/share/readymade/postinstall.d/10-flatpaks.sh
 
+tee /usr/share/readymade/postinstall.d/11-taidan.sh <<EOF
+#!/usr/bin/bash
+set -x
+mkdir -p /ostree/deploy/default/var/lib
+touch /ostree/deploy/default/var/lib/taidan
+EOF
+chmod +x /usr/share/readymade/postinstall.d/11-taidan.sh
+
 tee /usr/share/readymade/postinstall.d/99-mok.sh <<"EOF"
 #!/usr/bin/bash
 set -x
