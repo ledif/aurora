@@ -28,10 +28,11 @@ jobs:
       fail-fast: false
       matrix:
         platform: [amd64]
-        flavor: ["", "nvidia-open"]
-        # TODO
-        #image_version: ["stable"]
+        flavor: [""]
         image_version: ["latest"]
+        # TODO
+        #flavor: ["", "nvidia-open"]
+        #image_version: ["stable"]
     permissions:
       contents: read
       packages: read
