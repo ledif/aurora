@@ -29,7 +29,9 @@ jobs:
       matrix:
         platform: [amd64]
         flavor: ["", "nvidia-open"]
-        image_version: ["stable"]
+        # TODO
+        #image_version: ["stable"]
+        image_version: ["latest"]
     permissions:
       contents: read
       packages: read
@@ -70,7 +72,7 @@ jobs:
           fi
           # TODO
           #echo "image_ref=ghcr.io/$OUTPUT_NAME" >> "${GITHUB_OUTPUT}"
-          echo "image_ref=ghcr.io/ledif/aurora:latest" >> "${GITHUB_OUTPUT}"
+          echo "image_ref=ghcr.io/ledif/aurora" >> "${GITHUB_OUTPUT}"
           echo "artifact_format=$ARTIFACT_FORMAT" >> "${GITHUB_OUTPUT}"
           echo "kargs=$KARGS" >> "${GITHUB_OUTPUT}"
           
