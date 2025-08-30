@@ -1,0 +1,4 @@
+# Enable uptime checker timer by default
+enable uptime-checker.timer
+# Enable uptime checker on boot to disable notifier after reboot
+enable uptime-checker-boot.service

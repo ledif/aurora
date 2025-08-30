@@ -1,0 +1,6 @@
+[Unit]
+Description=Show reboot notification to user
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/ublue-reboot-notifier-show.sh
