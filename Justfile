@@ -913,3 +913,17 @@ retag-nvidia-on-ghcr working_tag="" stream="" dry_run="1":
     for image in aurora-nvidia-open aurora-nvidia aurora-dx-nvidia aurora-dx-nvidia-open; do
       $skopeo copy docker://ghcr.io/ublue-os/${image}:{{ working_tag }} docker://ghcr.io/ublue-os/${image}:{{ stream }}
     done
+
+[group('Admin')]
+bluefin-cherry-pick:
+    #!/usr/bin/bash
+    set -euo pipefail
+    
+    if ! command -v uv &> /dev/null; then
+        echo "uv not found, installing with brew..."
+        brew install uv
+    fi
+    
+    cd tools
+    clear
+    uv run python bluefin-cherry-picker.py --days 14 --show-diff
