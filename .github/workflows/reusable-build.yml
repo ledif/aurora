@@ -108,7 +108,8 @@ jobs:
           set -x
           sudo systemctl start podman.socket
           mkdir -p /tmp/image-oci-dir
-          sudo podman export "localhost/${IMAGE}:${STREAM_NAME}" | sudo tar -C /tmp/image-oci-dir -xf -
+          sudo podman container create --replace --name aurora-tmp "localhost/${IMAGE}:${STREAM_NAME}"
+          sudo podman export aurora-tmp | sudo tar -C /tmp/image-oci-dir -xf -
 
           OUTPUT_PATH="$(mktemp -d)/sbom.json"
           export SYFT_PARALLELISM=1
