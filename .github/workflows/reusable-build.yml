@@ -110,10 +110,11 @@ jobs:
           mkdir -p /tmp/image-oci-dir
           sudo podman container create --replace --name aurora-tmp "localhost/${IMAGE}:${STREAM_NAME}"
           sudo podman export aurora-tmp | sudo tar -C /tmp/image-oci-dir -xf -
+          ls -l /tmp/image-oci-dir
 
           OUTPUT_PATH="$(mktemp -d)/sbom.json"
           export SYFT_PARALLELISM=1
-          sudo $SYFT_CMD --select-catalogers=rpm rootfs/usr/share/rpm/rpmdb.sqlite -o spdx-json=${OUTPUT_PATH}
+          sudo $SYFT_CMD --select-catalogers=rpm /tmp/image-oci-dir/usr/share/rpm/rpmdb.sqlite -o spdx-json=${OUTPUT_PATH}
           cat ${OUTPUT_PATH}
           echo "OUTPUT_PATH=${OUTPUT_PATH}" >> $GITHUB_OUTPUT
 
