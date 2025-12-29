@@ -108,7 +108,7 @@ jobs:
           set -x
           sudo systemctl start podman.socket
           mkdir -p /tmp/image-oci-dir
-          sudo podman container create --replace --name aurora-tmp "localhost/${IMAGE}:${STREAM_NAME}"
+          CONTAINER=$(sudo podman container create --replace --name aurora-tmp "localhost/${IMAGE}:${STREAM_NAME}")
           sudo podman export aurora-tmp | sudo tar -C /tmp/image-oci-dir -xf -
           ls -l /tmp/image-oci-dir
 
@@ -117,8 +117,8 @@ jobs:
           sudo $SYFT_CMD --select-catalogers=rpm /tmp/image-oci-dir/usr/share/rpm/rpmdb.sqlite -o spdx-json=${OUTPUT_PATH}
           cat ${OUTPUT_PATH}
           echo "OUTPUT_PATH=${OUTPUT_PATH}" >> $GITHUB_OUTPUT
-          podman stop aurora-tmp
-          podman rm aurora-tmp
+          podman stop ${CONTAINER}
+          podman rm ${CONTAINER}
           sudo rm -rf /tmp/image-oci-dir
 
       - name: Rechunk Image
