@@ -110,8 +110,8 @@ jobs:
           sudo podman save --format=oci-dir -o /tmp/image-oci-dir "localhost/${IMAGE}:${STREAM_NAME}"
 
           OUTPUT_PATH="$(mktemp -d)/sbom.json"
-          export SYFT_PARALLELISM=$(($(nproc)*2))
-          sudo $SYFT_CMD /tmp/image-oci-dir -o spdx-json=${OUTPUT_PATH}
+          export SYFT_PARALLELISM=1
+          sudo $SYFT_CMD --select-catalogers=rpm /tmp/image-oci-dir -o spdx-json=${OUTPUT_PATH}
           cat ${OUTPUT_PATH}
           echo "OUTPUT_PATH=${OUTPUT_PATH}" >> $GITHUB_OUTPUT
 
