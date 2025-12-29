@@ -107,11 +107,12 @@ jobs:
         run: |
           set -x
           sudo systemctl start podman.socket
-          sudo podman save --format=oci-dir -o /tmp/image-oci-dir "localhost/${IMAGE}:${STREAM_NAME}"
+          mkdir -p /tmp/image-oci-dir
+          sudo podman export "localhost/${IMAGE}:${STREAM_NAME}" | sudo tar -C /tmp/image-oci-dir -xf -
 
           OUTPUT_PATH="$(mktemp -d)/sbom.json"
           export SYFT_PARALLELISM=1
-          sudo $SYFT_CMD --select-catalogers=rpm /tmp/image-oci-dir -o spdx-json=${OUTPUT_PATH}
+          sudo $SYFT_CMD --select-catalogers=rpm rootfs/usr/share/rpm/rpmdb.sqlite -o spdx-json=${OUTPUT_PATH}
           cat ${OUTPUT_PATH}
           echo "OUTPUT_PATH=${OUTPUT_PATH}" >> $GITHUB_OUTPUT
 
