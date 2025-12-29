@@ -117,6 +117,9 @@ jobs:
           sudo $SYFT_CMD --select-catalogers=rpm /tmp/image-oci-dir/usr/share/rpm/rpmdb.sqlite -o spdx-json=${OUTPUT_PATH}
           cat ${OUTPUT_PATH}
           echo "OUTPUT_PATH=${OUTPUT_PATH}" >> $GITHUB_OUTPUT
+          podman stop aurora-tmp
+          podman rm aurora-tmp
+          sudo rm -rf /tmp/image-oci-dir
 
       - name: Rechunk Image
         id: rechunk-image
