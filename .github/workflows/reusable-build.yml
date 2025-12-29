@@ -107,7 +107,7 @@ jobs:
         run: |
           set -x
           sudo systemctl start podman.socket
-          podman save --format=oci-dir -o /tmp/image-oci-dir "localhost/${IMAGE}:${STREAM_NAME}"
+          sudo podman save --format=oci-dir -o /tmp/image-oci-dir "localhost/${IMAGE}:${STREAM_NAME}"
 
           OUTPUT_PATH="$(mktemp -d)/sbom.json"
           export SYFT_PARALLELISM=$(($(nproc)*2))
